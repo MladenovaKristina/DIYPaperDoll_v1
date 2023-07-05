@@ -113,18 +113,12 @@ export default class Character extends DisplayObject {
     });
   }
   animate() {
-    const moveTween = new Tween({
-      scale: [this.scale, this.scale + 0.1, this.scale],
-    }, 0.7, { ease: Ease.sinusoidalInOut, delay: 1 });
-    this._view.add(moveTween);
+    // const moveTween = new Tween({
+    //   scaleX: [this.scaleX, this.scaleX + 0.1, this.scaleX],
+    //   scaleY: [this.scaleY, this.scaleY + 0.1, this.scaleY],
+    // }, 0.7, { ease: Ease.sinusoidalInOut, delay: 1 });
+    // this._view.add(moveTween);
 
-    this._outfits.forEach((outfitContainer) => {
-      const outfit = outfitContainer.mChildren[0];
-      const outfitTween = new Tween({
-        scale: [outfit.scale, outfit.scale + 0.1, outfit.scale],
-      }, 0.7, { ease: Ease.sinusoidalInOut, delay: 1 });
-      outfit.add(outfitTween);
-    });
   }
 
 

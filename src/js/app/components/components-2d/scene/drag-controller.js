@@ -46,8 +46,7 @@ export default class Drag extends DisplayObject {
             this._outfit.y >= this._character.y - this._character.height &&
             this._outfit.y <= this._character.y + this._character.height
         ) {
-            console.log("reset");
-
+            //reset to booklet position
         } else {
             this.setWear = true; this._outfit.active = false;
 
