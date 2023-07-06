@@ -112,14 +112,4 @@ export default class Character extends DisplayObject {
       outfitToWearContainer.add(outfitToWear);
     });
   }
-  animate() {
-    // const moveTween = new Tween({
-    //   scaleX: [this.scaleX, this.scaleX + 0.1, this.scaleX],
-    //   scaleY: [this.scaleY, this.scaleY + 0.1, this.scaleY],
-    // }, 0.7, { ease: Ease.sinusoidalInOut, delay: 1 });
-    // this._view.add(moveTween);
-
-  }
-
-
 }
