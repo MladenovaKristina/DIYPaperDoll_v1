@@ -24,10 +24,12 @@ export default class Drag extends DisplayObject {
     }
 
     onAdded() {
-        this._view = new Sprite('hint_female');
-        this._view.scaleX = 0.6;
-        this._view.scaleY = 0.6;
-        this._view.alignAnchor(0.1, 0);
+        this._view = new Sprite('hint_female_arm');
+        this._view.scaleX = 2.2;
+        this._view.scaleY = 2.2;
+        this._view.rotation = -Math.PI * 0.1;
+
+        this._view.alignAnchor(0.12, 0.01);
         this.add(this._view);
 
         this._boundingBox = new Graphics();
@@ -70,7 +72,7 @@ export default class Drag extends DisplayObject {
         this.visible = true;
 
         this._outfit.x = x - this._booklet.x;
-        this._outfit.y = y - this._outfit.height / 2;
+        this._outfit.y = y + this._outfit.height / 3.2;
 
     }
 
@@ -90,7 +92,6 @@ export default class Drag extends DisplayObject {
             this.setWear = true;
             this._character.wearOutfit(this._id);
 
-            console.log("intersect", outfitBounds, playerBounds)
             if (ConfigurableParams.getData()['audio']['sound_pop_enabled']['value'])
                 SoundsController.playWithKey('pop');
         }

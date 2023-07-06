@@ -6,6 +6,8 @@ import lilita_one from '../../../data/fonts/lilita_one.js';
 import hint_mickey from '../../../data/textures/hint_mickey.png';
 import hint_simple from '../../../data/textures/hint_simple.png';
 import hint_female from '../../../data/textures/hint_female.png';
+import hint_female_arm from '../../../data/textures/hint_female_arm.png';
+
 import btn_outline from '../../../data/textures/btn_outline.png';
 import btn_color from '../../../data/textures/btn_color.png';
 import btn_back from '../../../data/textures/btn_back.png';
@@ -36,6 +38,8 @@ export default class AssetsLoader2D extends GameObject {
     assets.enqueueImage('hint_mickey', hint_mickey);
     assets.enqueueImage('hint_simple', hint_simple);
     assets.enqueueImage('hint_female', hint_female);
+    assets.enqueueImage('hint_female_arm', hint_female_arm);
+
 
     assets.enqueueImage('btn_outline', btn_outline);
     assets.enqueueImage('btn_color', btn_color);
