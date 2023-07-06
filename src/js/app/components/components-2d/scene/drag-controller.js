@@ -10,6 +10,7 @@ export default class Drag extends DisplayObject {
         this._booklet = booklet;
         this._outfit = null;
         this.setWear = false;
+        this._canMove = false;
 
         this.first = 0;
         this._wearOutfitPosition = null;
@@ -29,6 +30,14 @@ export default class Drag extends DisplayObject {
         this._view.alignAnchor(0.1, 0);
         this.add(this._view);
 
+        this._boundingBox = new Graphics();
+        this._boundingBox.beginPath();
+        this._boundingBox.fillStyle(0x000000, 0);
+        this._boundingBox.rect(this._character.x + this._character.width, this._character.y - this._character.height * 0.2, this._character.width, this._character.height)
+        this._boundingBox.fill();
+        this.add(this._boundingBox)
+        console.log(this._character.height)
+        this.visible = false;
     }
 
     drag(outfit, id) {
@@ -54,6 +63,7 @@ export default class Drag extends DisplayObject {
     }
 
     onDown() {
+        this._canMove = true;
     }
 
     onMove(x, y) {
@@ -63,31 +73,33 @@ export default class Drag extends DisplayObject {
 
         this._outfit.x = x - 500;
         this._outfit.y = y;
+
     }
 
     onUp() {
+        this._canMove = false;
+
         this.visible = false;
         this.first = 0;
+        // this._booklet._hideBG();
 
-        if (
-            this._outfit.x >= this._character.x - this._character.width / 2 &&
-            this._outfit.x <= this._character.x + this._character.width / 2 &&
-            this._outfit.y >= this._character.y - this._character.height &&
-            this._outfit.y <= this._character.y + this._character.height
-        ) {
-            this._outfit.x = this._bookletPosition.x;
-            this._outfit.y = this._bookletPosition.y;
-        }
-        else {
-            this.setWear = true;
+        const outfitBounds = this._outfit.getBounds();
+        const playerBounds = this._boundingBox.getBounds();
 
+        if (outfitBounds.intersects(playerBounds)) {
             this._outfit.x = this._wearOutfitPosition.x;
             this._outfit.y = this._wearOutfitPosition.y;
-
+            this.setWear = true;
             this._character.wearOutfit(this._id);
 
+            console.log("intersect", outfitBounds, playerBounds)
             if (ConfigurableParams.getData()['audio']['sound_pop_enabled']['value'])
                 SoundsController.playWithKey('pop');
+        }
+
+        else {
+            this._outfit.x = this._bookletPosition.x;
+            this._outfit.y = this._bookletPosition.y + this._booklet.position.y;
         }
     }
 }

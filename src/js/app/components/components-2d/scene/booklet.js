@@ -58,6 +58,9 @@ export default class Booklet extends DisplayObject {
     this._bgContainer.add(this._rightPage);
   }
 
+  _hideBG() {
+    this._bgContainer.scale = 0;
+  }
   _initTexts() {
     this._textfieldLeft = new TextField(
       this._textLeft,
