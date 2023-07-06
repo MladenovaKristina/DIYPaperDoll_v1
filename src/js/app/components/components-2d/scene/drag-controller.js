@@ -36,8 +36,6 @@ export default class Drag extends DisplayObject {
         this._boundingBox.rect(this._character.x + this._character.width, this._character.y - this._character.height * 0.2, this._character.width, this._character.height)
         this._boundingBox.fill();
         this.add(this._boundingBox)
-        console.log(this._character.height)
-        this.visible = false;
     }
 
     drag(outfit, id) {
@@ -71,8 +69,8 @@ export default class Drag extends DisplayObject {
         this._view.y = y;
         this.visible = true;
 
-        this._outfit.x = x - 500;
-        this._outfit.y = y;
+        this._outfit.x = x - this._booklet.x;
+        this._outfit.y = y - this._outfit.height / 2;
 
     }
 
