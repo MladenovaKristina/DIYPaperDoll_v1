@@ -60,13 +60,7 @@ export default class Scene extends DisplayObject {
         this._tutorial.hide();
 
         let outfit = this._character._outfits.find((outfit) => outfit.mChildren[0].id === id);
-        this._drag.drag(outfit.mChildren[0], id, () => {
-          this._character.wearOutfit(id);
-          if (ConfigurableParams.getData()['audio']['sound_pop_enabled']['value'])
-            SoundsController.playWithKey('pop');
-
-          this._character.animate();
-        });
+        this._drag.drag(outfit.mChildren[0], id)
 
 
 
@@ -83,7 +77,7 @@ export default class Scene extends DisplayObject {
   }
 
   _initDrag() {
-    this._drag = new Drag(this._character);
+    this._drag = new Drag(this._character, this._booklet);
     this.add(this._drag);
   }
 
