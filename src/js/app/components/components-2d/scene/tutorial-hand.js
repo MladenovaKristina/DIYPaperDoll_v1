@@ -1,4 +1,4 @@
-import { Tween, Black, DisplayObject, Sprite, Ease } from '../../../../utils/black-engine.module';
+import { Tween, DisplayObject, Sprite, Ease } from '../../../../utils/black-engine.module';
 import ConfigurableParams from '../../../../data/configurable_params';
 
 export class TutorialHand extends DisplayObject {

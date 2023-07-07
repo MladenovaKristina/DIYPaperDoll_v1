@@ -1,5 +1,5 @@
 import { Vector2 } from 'three';
-import { Black, Sprite, DisplayObject, Graphics } from '../../../../utils/black-engine.module';
+import { Sprite, DisplayObject, Graphics } from '../../../../utils/black-engine.module';
 import ConfigurableParams from '../../../../data/configurable_params';
 import SoundsController from '../../kernel/soundscontroller';
 import { TutorialHand } from './tutorial-hand';

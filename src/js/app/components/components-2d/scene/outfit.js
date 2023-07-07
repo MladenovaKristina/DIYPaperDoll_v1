@@ -1,5 +1,5 @@
 import ConfigurableParams from '../../../../data/configurable_params';
-import { GameObject, Tween, Ease, Sprite, DisplayObject, TextField, Graphics, BlendMode } from '../../../../utils/black-engine.module';
+import { Tween, Ease, Sprite, DisplayObject } from '../../../../utils/black-engine.module';
 
 export default class Outfit extends DisplayObject {
   constructor(data) {

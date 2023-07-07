@@ -1,5 +1,5 @@
 import ConfigurableParams from '../../../../data/configurable_params';
-import { GameObject, Tween, Ease, Sprite, DisplayObject, TextField, Timer } from '../../../../utils/black-engine.module';
+import { GameObject, Sprite, DisplayObject, TextField, Timer } from '../../../../utils/black-engine.module';
 import Outfit from './outfit';
 import { TutorialHand } from './tutorial-hand';
 

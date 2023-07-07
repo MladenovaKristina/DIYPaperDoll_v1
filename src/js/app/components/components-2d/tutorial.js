@@ -1,6 +1,5 @@
 import ConfigurableParams from '../../../data/configurable_params';
-import { Tween, Black, Graphics, Sprite, DisplayObject, TextField, Ease } from '../../../utils/black-engine.module';
-import Helpers from '../../helpers/helpers';
+import { Tween, DisplayObject, TextField, Ease } from '../../../utils/black-engine.module';
 
 export default class Tutorial extends DisplayObject {
   constructor() {

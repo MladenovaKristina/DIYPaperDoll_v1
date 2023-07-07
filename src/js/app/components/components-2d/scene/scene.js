@@ -1,10 +1,9 @@
 import ConfigurableParams from '../../../../data/configurable_params';
-import { Black, Tween, Ease, Sprite, DisplayObject, TextField } from '../../../../utils/black-engine.module';
+import { Black, DisplayObject } from '../../../../utils/black-engine.module';
 import Helpers from '../../../helpers/helpers';
 import SoundsController from '../../kernel/soundscontroller';
 import Booklet from './booklet';
 import Character from './character';
-import Outfit from './outfit';
 import Drag from './drag-controller';
 
 

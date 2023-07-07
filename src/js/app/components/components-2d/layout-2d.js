@@ -1,6 +1,5 @@
 import { Black, DisplayObject, Graphics, GraphicsLinearGradient, Sprite } from '../../../utils/black-engine.module';
 import model from '../../../data/model';
-import Helpers from '../../helpers/helpers';
 import PlayButton from './play-button';
 import Endscreen from './endscreen';
 import ConfigurableParams from '../../../data/configurable_params';
