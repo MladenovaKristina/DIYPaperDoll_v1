@@ -569,7 +569,7 @@ export default class ConfigurableParams {
       "starting_hint_type": {
         "label": "Finger hint type",
         "type": "select",
-        "value": "FEMALE",
+        "value": "FEMALE ARM",
         "options": ["FEMALE", "MICKEY", "SIMPLE", "FEMALE ARM"],
         "descrition": "Select finger hint type.",
         "assetName": null

@@ -45,6 +45,7 @@ export default class Outfit extends DisplayObject {
 
   show(onComplete) {
     this.visible = true;
+
     const oldScale = this.scaleX;
 
     this.scaleX = oldScale * 1.7;
@@ -56,7 +57,19 @@ export default class Outfit extends DisplayObject {
     }, 0.3, { ease: Ease.sinusoidalIn });
     this.add(showTween);
 
-    showTween.on('complete', () => onComplete());
+    showTween.on('complete', msg => onComplete());
+  }
+
+  showOutfit() {
+    this.visible = true;
+
+    const oldScale = 1;
+
+    const showTween = new Tween({
+      scaleX: oldScale,
+      scaleY: oldScale
+    }, 0.3, { ease: Ease.sinusoidalIn });
+    this._view.add(showTween);
   }
 
   pulseHint() {

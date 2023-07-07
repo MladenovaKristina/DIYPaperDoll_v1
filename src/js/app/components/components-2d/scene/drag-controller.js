@@ -1,36 +1,34 @@
 import { Vector2 } from 'three';
-import { GameObject, Tween, Sprite, DisplayObject, TextField, Graphics, BlendMode } from '../../../../utils/black-engine.module';
+import { Black, Sprite, DisplayObject, Graphics } from '../../../../utils/black-engine.module';
 import ConfigurableParams from '../../../../data/configurable_params';
 import SoundsController from '../../kernel/soundscontroller';
-
+import { TutorialHand } from './tutorial-hand';
 export default class Drag extends DisplayObject {
     constructor(character, booklet) {
         super();
+        this.visible = false;
+
         this._character = character;
         this._booklet = booklet;
         this._outfit = null;
-        this.setWear = false;
+        this._duplicate = null;
+        this.positionY = null;
+
         this._canMove = false;
 
-        this.first = 0;
+        this._first = 0;
         this._wearOutfitPosition = null;
         this._bookletPosition = null;
         this._playerX = null;
         this._playerY = null;
         this._id = null;
+        this._moveTween = null;
 
-        this._view = null;
-        this.visible = false;
+        this._hand = null;
     }
 
     onAdded() {
-        this._view = new Sprite('hint_female_arm');
-        this._view.scaleX = 2.2;
-        this._view.scaleY = 2.2;
-        this._view.rotation = -Math.PI * 0.1;
-
-        this._view.alignAnchor(0.12, 0.01);
-        this.add(this._view);
+        this._hand = new TutorialHand();
 
         this._boundingBox = new Graphics();
         this._boundingBox.beginPath();
@@ -42,23 +40,15 @@ export default class Drag extends DisplayObject {
 
     drag(outfit, id) {
         this._outfit = outfit;
-        this._outfit.active = true;
-        this._outfit.visible = true;
-        let position = 0;
+        let sprite = this._outfit._sprite;
+        this._duplicate = new Sprite(sprite);
+        this.add(this._duplicate);
 
-        if (this.first === 0) {
-            this._id = id;
-
-            this._wearOutfitPosition = new Vector2(this._outfit.x, this._outfit.y);
-            this._bookletPosition = new Vector2(this._booklet._outfits[this._id].mX, this._booklet._outfits[this._id].mY);
-            this.first++;
-        }
-        else {
-            if (this._id !== id) {
-                this._id = id;
-                this.first = 0;
-                position = 0;
-            }
+        this._id = id;
+        if (this._first === 0) {
+            this.positionY = this._outfit.y;
+            this._bookletPosition = new Vector2(this._booklet._outfits[this._id].mX, this._booklet.mY);
+            this._first++
         }
     }
 
@@ -67,29 +57,28 @@ export default class Drag extends DisplayObject {
     }
 
     onMove(x, y) {
-        this._view.x = x;
-        this._view.y = y;
-        this.visible = true;
+        if (this._canMove) {
+            this._hand.x = x;
+            this._hand.y = y;
+            this._hand.visible = true;
+            this.add(this._hand);
 
-        this._outfit.x = x - this._booklet.x;
-        this._outfit.y = y + this._outfit.height / 3.2;
 
+            this._duplicate.x = x - this._duplicate.width / 3;
+            this._duplicate.y = y - 10;
+
+            this.visible = true;
+        }
     }
 
     onUp() {
         this._canMove = false;
+        this._duplicate.visible = false;
 
-        this.visible = false;
-        this.first = 0;
-        // this._booklet._hideBG();
-
-        const outfitBounds = this._outfit.getBounds();
+        const outfitBounds = this._duplicate.getBounds();
         const playerBounds = this._boundingBox.getBounds();
 
         if (outfitBounds.intersects(playerBounds)) {
-            this._outfit.x = this._wearOutfitPosition.x;
-            this._outfit.y = this._wearOutfitPosition.y;
-            this.setWear = true;
             this._character.wearOutfit(this._id);
 
             if (ConfigurableParams.getData()['audio']['sound_pop_enabled']['value'])
@@ -97,8 +86,13 @@ export default class Drag extends DisplayObject {
         }
 
         else {
-            this._outfit.x = this._bookletPosition.x;
-            this._outfit.y = this._bookletPosition.y + this._booklet.position.y;
+            console.log("outside");
+
+
+            this._booklet.showOutfit(this._id);
         }
+
+        this._first = 0;
     }
+
 }
