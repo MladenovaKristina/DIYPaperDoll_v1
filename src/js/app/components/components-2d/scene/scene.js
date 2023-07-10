@@ -59,7 +59,7 @@ export default class Scene extends DisplayObject {
         this._tutorial.hide();
 
         let outfit = this._character._outfits.find((outfit) => outfit.mChildren[0].id === id);
-        this._drag.drag(outfit.mChildren[0], id)
+        this._drag.initDraggable(outfit.mChildren[0], id)
 
 
 
@@ -85,15 +85,15 @@ export default class Scene extends DisplayObject {
       x - this._booklet.x,
       y - this._booklet.y,
     );
-    this._drag.onDown(x, y);
+    if (this._interactionType === "Drag") this._drag.onDown(x, y);
   }
 
   onMove(x, y) {
-    this._drag.onMove(x, y);
+    if (this._interactionType === "Drag") this._drag.onMove(x, y);
   }
 
   onUp() {
-    this._drag.onUp(() => {
+    if (this._interactionType === "Drag") this._drag.onUp(() => {
       this._outfitsSelected++;
     });
   }
