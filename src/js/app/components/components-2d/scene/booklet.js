@@ -15,7 +15,7 @@ export default class Booklet extends DisplayObject {
     this._textLeft = ConfigurableParams.getData()['booklet']['left_page_text']['value'];
     this._textRight = ConfigurableParams.getData()['booklet']['right_page_text']['value'];
     this._textColor = Number(ConfigurableParams.getData()["booklet"]["text_color"]["value"].replace('#', '0x'));
-    this._interactionType = ConfigurableParams.getData()['interaction_type']['value'];
+    this._interactionType = ConfigurableParams.getData()['interaction']['interaction_type']['value'];
     console.log(this._interactionType, "interact enabled");
 
     this._leftPage = null;

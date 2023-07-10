@@ -62,6 +62,7 @@ export default class Outfit extends DisplayObject {
 
   showOutfit() {
     this.visible = true;
+    this.active = true;
 
     const oldScale = 1;
 

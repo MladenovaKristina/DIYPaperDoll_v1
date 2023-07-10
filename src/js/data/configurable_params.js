@@ -76,13 +76,15 @@ export default class ConfigurableParams {
         "assetName": null
       }
     },
-    "interaction_type": {
-      "label": "Interaction type",
-      "type": "select",
-      "value": "Drag",
-      "options": ["Tap", "Drag"],
-      "descrition": "Interaction type",
-      "assetName": null
+    "interaction": {
+      "interaction_type": {
+        "label": "Interaction type",
+        "type": "select",
+        "value": "Drag",
+        "options": ["Tap", "Drag"],
+        "descrition": "Interaction type",
+        "assetName": null
+      }
     },
     "character": {
       "char_view": {

@@ -45,14 +45,9 @@ export default class Drag extends DisplayObject {
         this.add(this._duplicate);
         this._id = id;
 
-        if (this._first === 0) {
-            this.positionY = this._outfit.y;
-            this._bookletPosition = new Vector2(
-                this._booklet._outfits[this._id].mX,
-                this._booklet.mY
-            );
-            this._first++;
-        }
+        this._bookletPosition = new Vector2(
+            this._booklet._outfits[this._id].mX,
+            this._outfit.y);
 
         this._hand.visible = false;
         this.add(this._hand);
@@ -60,12 +55,12 @@ export default class Drag extends DisplayObject {
 
     onDown(x, y) {
         this._canMove = true;
-        if (this._canMove) {
-            this._booklet._stopHint();
-            this._hand.visible = true;
-            this._hand.x = x;
-            this._hand.y = y;
-        }
+        this._booklet._stopHint();
+        this._hand.visible = true;
+        this._hand.x = x;
+        this._hand.y = y;
+        this._duplicate.x = x - this._duplicate.width / 2;
+        this._duplicate.y = y - this._duplicate.height / 2;
     }
 
     onMove(x, y) {
@@ -94,7 +89,6 @@ export default class Drag extends DisplayObject {
                 SoundsController.playWithKey('pop');
             }
         } else {
-            console.log("outside");
             this._booklet.showOutfit(this._id);
         }
 

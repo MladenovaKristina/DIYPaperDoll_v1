@@ -16,7 +16,7 @@ export default class Scene extends DisplayObject {
     this._tutorial = tutorial;
     this._character = null;
     this._booklet = null;
-    this._interactionType = ConfigurableParams.getData()['interaction_type']['value'];
+    this._interactionType = ConfigurableParams.getData()['interaction']['interaction_type']['value'];
 
     this._outfitsSelected = 0;
     this._outfitsToStore = ConfigurableParams.getData()['store_details']['outfits_to_store']['value'];
