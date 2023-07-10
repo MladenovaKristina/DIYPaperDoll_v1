@@ -16,7 +16,7 @@ export default class Booklet extends DisplayObject {
     this._textRight = ConfigurableParams.getData()['booklet']['right_page_text']['value'];
     this._textColor = Number(ConfigurableParams.getData()["booklet"]["text_color"]["value"].replace('#', '0x'));
     this._interactionType = ConfigurableParams.getData()['interaction_type']['value'];
-    console.log(this._interactionType, "interract");
+    console.log(this._interactionType, "interact enabled");
 
     this._leftPage = null;
     this._rightPage = null;
@@ -202,13 +202,32 @@ export default class Booklet extends DisplayObject {
     this._makeStep(count);
   }
 
+  // Original _makeStep
+  // _makeStep(count) {
+  //   const index = count() % this._outfits.length;
+  //   this._hint.x = this._outfits[index].x;
+  //   this._hint.y = this._outfits[index].y - 20;
+  //   this._hint.tap();
+  //   this._outfits[index].pulseHint();
+  // }
+
+  // Kristina's _makeStep, only hovers active outfit
   _makeStep(count) {
-    const index = count() % this._outfits.length;
-    this._hint.x = this._outfits[index].x;
-    this._hint.y = this._outfits[index].y - 20;
+    const activeOutfits = this._outfits.filter(outfit => outfit.active); // Filter active outfits
+
+    if (activeOutfits.length === 0) {
+      // No active outfits, stop the hint
+      this._stopHint();
+      return;
+    }
+    const index = count() % activeOutfits.length;
+    this._hint.x = activeOutfits[index].x;
+    this._hint.y = activeOutfits[index].y - 20;
     this._hint.tap();
-    this._outfits[index].pulseHint();
+    activeOutfits[index].pulseHint();
   }
+
+
 
   _stopHint() {
     this._hint.visible = false;

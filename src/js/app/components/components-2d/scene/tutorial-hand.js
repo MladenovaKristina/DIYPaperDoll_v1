@@ -35,10 +35,10 @@ export class TutorialHand extends DisplayObject {
     }
     if (ConfigurableParams.getData()["tutorial"]['starting_hint_type']['value'] === 'FEMALE ARM') {
       this._view = new Sprite('hint_female_arm');
-      this._view.scaleX = 1.5;
-      this._view.scaleY = 1.5;
+      this._view.scaleX = 1.3;
+      this._view.scaleY = 1.3;
       this._view.rotation = -Math.PI * 0.1;
-      this._view.alignAnchor(-0.05, 0.06);
+      this._view.alignAnchor(-0.03, 0.11);
       this.add(this._view);
     }
   }

@@ -59,7 +59,7 @@ export default class Scene extends DisplayObject {
         this._tutorial.hide();
 
         let outfit = this._character._outfits.find((outfit) => outfit.mChildren[0].id === id);
-        this._drag.drag(outfit.mChildren[0], id)
+        this._drag.initDraggable(outfit.mChildren[0], id)
 
 
 
