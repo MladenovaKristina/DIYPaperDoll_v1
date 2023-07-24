@@ -59,12 +59,14 @@ export default class Drag extends DisplayObject {
         this._hand.visible = true;
         this._hand.x = x;
         this._hand.y = y;
-        this._duplicate.x = x - this._duplicate.width / 2;
-        this._duplicate.y = y - this._duplicate.height / 2;
+        if (this._duplicate) {
+            this._duplicate.x = x - this._duplicate.width / 2;
+            this._duplicate.y = y - this._duplicate.height / 2;
+        }
     }
 
     onMove(x, y) {
-        if (this._canMove) {
+        if (this._canMove && this._duplicate) {
             this._hand.x = x;
             this._hand.y = y;
             this._duplicate.x = x - this._duplicate.width / 2;
@@ -74,24 +76,26 @@ export default class Drag extends DisplayObject {
     }
 
     onUp() {
-        this._canMove = false;
-        this._duplicate.visible = false;
-        this._hand.visible = false;
-        this._booklet.startHint();
+        this._canMove = false; if (this._duplicate) {
+            this._duplicate.visible = false;
 
-        const outfitBounds = this._duplicate.getBounds();
-        const playerBounds = this._boundingBox.getBounds();
+            this._hand.visible = false;
+            this._booklet.startHint();
 
-        if (outfitBounds.intersects(playerBounds)) {
-            this._character.wearOutfit(this._id);
+            const outfitBounds = this._duplicate.getBounds();
+            const playerBounds = this._boundingBox.getBounds();
 
-            if (ConfigurableParams.getData()['audio']['sound_pop_enabled']['value']) {
-                SoundsController.playWithKey('pop');
+            if (outfitBounds.intersects(playerBounds)) {
+                this._character.wearOutfit(this._id);
+
+                if (ConfigurableParams.getData()['audio']['sound_pop_enabled']['value']) {
+                    SoundsController.playWithKey('pop');
+                }
+            } else {
+                this._booklet.showOutfit(this._id);
             }
-        } else {
-            this._booklet.showOutfit(this._id);
-        }
 
-        this._first = 0;
+            this._first = 0;
+        }
     }
 }
