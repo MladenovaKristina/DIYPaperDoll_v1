@@ -36,6 +36,8 @@ export default class Layout2D extends DisplayObject {
     this._topText = new TopText();
     this.add(this._topText);
 
+    this._scene.viewTopText(this._topText);
+
     this._createEndscreen();
 
     this._createLogo();

@@ -17,6 +17,7 @@ export default class Scene extends DisplayObject {
     this._character = null;
     this._booklet = null;
     this._interactionType = ConfigurableParams.getData()['interaction']['interaction_type']['value'];
+    this._topText = null;
 
     this._outfitsSelected = 0;
     this._outfitsToStore = ConfigurableParams.getData()['store_details']['outfits_to_store']['value'];
@@ -26,6 +27,10 @@ export default class Scene extends DisplayObject {
     this._initCharacter();
     this._initBooklet();
     if (this._interactionType === "Drag") this._initDrag();
+  }
+
+  viewTopText(object) {
+    this._topText = object;
   }
 
   _initCharacter() {
@@ -60,8 +65,6 @@ export default class Scene extends DisplayObject {
 
         let outfit = this._character._outfits.find((outfit) => outfit.mChildren[0].id === id);
         this._drag.initDraggable(outfit.mChildren[0], id)
-
-
 
         this._outfitsSelected++;
 
@@ -112,16 +115,26 @@ export default class Scene extends DisplayObject {
 
     this._booklet.scaleX = 1;
     this._booklet.scaleY = 1;
-    this._character.scaleX = 1;
-    this._character.scaleY = 1;
 
-    // Ipad portrait version
+    let offset;
+
+    if (window.innerWidth / window.innerHeight < 0.5) offset = 0; else offset = this._topText.height * 1.5;
+
+    let totalAvailableHeight = Black.stage.bounds.height - this._topText.height - offset - this._booklet.height;
+    let scale = totalAvailableHeight / Black.stage.bounds.height;
+    let scaleFactor = Math.min(1, Math.max(0, scale))
+
+    this._character.scaleX = 1 + scaleFactor;
+    this._character.scaleY = 1 + scaleFactor;
+
+    //     // Ipad portrait version
     if (Helpers.LP(false, true) && bb.height / this._booklet.height < 2.3) {
       this._booklet.scaleX = 0.8;
       this._booklet.scaleY = 0.8;
 
-      this._character.scaleX = 0.7;
-      this._character.scaleY = 0.7;
+      this._character.scaleX = 0.7 + scaleFactor;
+      this._character.scaleY = 0.7 + scaleFactor;
+
     }
     // Landscape version
     else if (Helpers.LP(true, false)) {
@@ -137,7 +150,6 @@ export default class Scene extends DisplayObject {
       this._booklet.x = Black.stage.centerX + bb.width * 0.1;
       this._booklet.y = Black.stage.centerY + 60;
     }
-
 
   }
 }
