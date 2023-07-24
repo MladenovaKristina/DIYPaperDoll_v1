@@ -105,35 +105,29 @@ export default class Scene extends DisplayObject {
     this._booklet.startHint();
   }
 
-  onResize(bb) {
+  onResize() {
+    const bb = Black.stage.bounds;
     // default portrait
+    let offset = (bb.width / bb.height < 0.47) ? -this._topText.height * 3 : this._topText.height / 4;
+    let scaleFactor = (bb.height - this._booklet.height - offset) / bb.height;
+
+    this._character.scaleX = this._character.scaleY = 0.7 + scaleFactor;
+
     this._character.x = Black.stage.centerX;
     this._character.y = Black.stage.centerY - bb.height * 0.18;
 
     this._booklet.x = Black.stage.centerX;
     this._booklet.y = Black.stage.centerY + bb.height * 0.25;
 
-    this._booklet.scaleX = 1;
-    this._booklet.scaleY = 1;
+    // Ipad portrait version
+    if (bb.width / bb.height > 0.6 && Helpers.LP(false, true)) {
+      console.log("ipad", bb.width / bb.height)
+      this._booklet.scaleX = 0.7;
+      this._booklet.scaleY = 0.7;
+      this._character.scaleX = this._character.scaleY = 0.55 + scaleFactor;
 
-    let offset;
-
-    if (window.innerWidth / window.innerHeight < 0.5) offset = 0; else offset = this._topText.height * 1.5;
-
-    let totalAvailableHeight = Black.stage.bounds.height - this._topText.height - offset - this._booklet.height;
-    let scale = totalAvailableHeight / Black.stage.bounds.height;
-    let scaleFactor = Math.min(1, Math.max(0, scale))
-
-    this._character.scaleX = 1 + scaleFactor;
-    this._character.scaleY = 1 + scaleFactor;
-
-    //     // Ipad portrait version
-    if (Helpers.LP(false, true) && bb.height / this._booklet.height < 2.3) {
-      this._booklet.scaleX = 0.8;
-      this._booklet.scaleY = 0.8;
-
-      this._character.scaleX = 0.7 + scaleFactor;
-      this._character.scaleY = 0.7 + scaleFactor;
+      this._character.x = Black.stage.centerX;
+      this._character.y = Black.stage.centerY - bb.height * 0.18;
 
     }
     // Landscape version
@@ -152,4 +146,5 @@ export default class Scene extends DisplayObject {
     }
 
   }
+
 }

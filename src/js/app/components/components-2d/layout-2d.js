@@ -51,7 +51,8 @@ export default class Layout2D extends DisplayObject {
     const bb = Black.stage.bounds;
 
     this._resizeBg(bb);
-    this._scene.onResize(bb);
+    this._scene.onResize();
+    this._scene.viewTopText(this._topText);
 
     this._topText.onResize();
     this._topText.x = bb.left;
