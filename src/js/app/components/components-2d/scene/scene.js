@@ -108,8 +108,8 @@ export default class Scene extends DisplayObject {
   onResize() {
     const bb = Black.stage.bounds;
     // default portrait
-    let offset = (bb.width / bb.height < 0.47) ? -this._topText.height * 3 : this._topText.height / 4;
-    let scaleFactor = (bb.height - this._booklet.height - offset) / bb.height;
+    let offset = (bb.width / bb.height < 0.47) ? -this._topText.height * Math.PI : this._topText.height * (Math.PI / 2);
+    let scaleFactor = (bb.height - this._booklet.height - offset - this._topText.height) / bb.height;
 
     this._character.scaleX = this._character.scaleY = 0.7 + scaleFactor;
 
@@ -121,10 +121,10 @@ export default class Scene extends DisplayObject {
 
     // Ipad portrait version
     if (bb.width / bb.height > 0.6 && Helpers.LP(false, true)) {
-      console.log("ipad", bb.width / bb.height)
+      console.log("ipad", bb.width / bb.height, offset)
       this._booklet.scaleX = 0.7;
       this._booklet.scaleY = 0.7;
-      this._character.scaleX = this._character.scaleY = 0.55 + scaleFactor;
+      this._character.scaleX = this._character.scaleY = 0.7 + scaleFactor;
 
       this._character.x = Black.stage.centerX;
       this._character.y = Black.stage.centerY - bb.height * 0.18;

@@ -90,7 +90,7 @@ export default class ConfigurableParams {
       "char_view": {
         "label": "Character view",
         "type": "select",
-        "value": "Character 4",
+        "value": "Character 3",
         "options": ["Character 1", "Character 2", "Character 3", "Character 4"],
         "descrition": "Character view",
         "assetName": null
