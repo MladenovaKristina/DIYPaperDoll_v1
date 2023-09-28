@@ -34,16 +34,6 @@ export default class SoundsController {
         src: ConfigurableParams.getData()['audio']['sound_final']['value'],
         source: null,
         AudioBuffer: null
-      },
-      pop: {
-        earlyInit: true,
-        play: false,
-        needPlay: false,
-        playMany: true,
-        loop: false,
-        src: ConfigurableParams.getData()['audio']['sound_pop']['value'],
-        source: null,
-        AudioBuffer: null
       }
     }
 
@@ -59,7 +49,7 @@ export default class SoundsController {
 
     this._ready = false;
     window.isSoundsControllerReady = () => {
-      
+
       if (this._ready) {
         return true;
       } else {
@@ -110,7 +100,7 @@ export default class SoundsController {
           }
         }, 1000);
       }
-      
+
       this._ready = true;
     } catch (error) {
       this._ready = false;
@@ -145,7 +135,7 @@ export default class SoundsController {
             Model.soundInitializationComplete = true;
 
             if (obj.needPlay) this.playWithKey(key);
-          } 
+          }
           else {
 
             setTimeout(() => {
@@ -185,13 +175,13 @@ export default class SoundsController {
         obj.source.connect(this.context.destination);
 
         const gainNode = this.context.createGain();
-        gainNode.gain.value = this.globalVolume;  
+        gainNode.gain.value = this.globalVolume;
         gainNode.connect(this.context.destination);
         obj.source.connect(gainNode);
 
         if (obj.loop) {
           obj.source.loop = true;
-        } 
+        }
         else {
           obj.source.loop = false;
         }
@@ -214,7 +204,7 @@ export default class SoundsController {
         newSource.connect(this.context.destination);
 
         const gainNode = this.context.createGain();
-        gainNode.gain.value = this.globalVolume;  
+        gainNode.gain.value = this.globalVolume;
         gainNode.connect(this.context.destination);
         newSource.connect(gainNode);
 
@@ -288,7 +278,7 @@ export default class SoundsController {
     try {
       if (obj.playMany) {
         obj.source = [];
-      } 
+      }
       else {
         obj.source.context.suspend();
       }
@@ -355,6 +345,13 @@ SoundsController.pauseAll = function () {
 
 SoundsController.continueAll = function () {
   SoundsController.instance.continueAll();
+}
+
+SoundsController.updateMute = function () {
+  if (Model.mute)
+    SoundsController.pauseAll();
+  else
+    SoundsController.continueAll();
 }
 
 SoundsController.initialization = function () {
