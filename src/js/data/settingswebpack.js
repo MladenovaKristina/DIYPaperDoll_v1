@@ -31,8 +31,8 @@ module.exports = class WebpackConfig {
     WebpackConfig.version = WebpackConfig.versionCB;
     WebpackConfig.versionDuration = WebpackConfig.versionDefault;
 
-    WebpackConfig.date = '19.06.23';
-    WebpackConfig.playableVersion = '1.0';
+    WebpackConfig.date = '28.09.2023';
+    WebpackConfig.playableVersion = '2.0';
 
     WebpackConfig.isCB = WebpackConfig.version === WebpackConfig.versionCB;
     WebpackConfig.isPN = WebpackConfig.version === WebpackConfig.versionPN;
