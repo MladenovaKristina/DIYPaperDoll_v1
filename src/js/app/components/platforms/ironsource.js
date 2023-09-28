@@ -34,7 +34,7 @@ export default class IronSourceGameController {
 
     dapi.addEventListener("viewableChange", () => { this.adVisibleCallback({ isViewable: dapi.isViewable() }) });
     dapi.addEventListener("adResized", () => { this.adResizeCallback(dapi.getScreenSize()) });
-    dapi.addEventListener("audioVolumeChange", () => { this.audioVolumeChangeCallback() });
+    dapi.addEventListener("audioVolumeChange", () => { this.audioVolumeChangeCallback(dapi.getAudioVolume()) });
   }
 
   startGame() {
@@ -87,6 +87,8 @@ export default class IronSourceGameController {
       //PAUSE the turn off the sound
       Model.mute = false;
     }
+
+    SoundsController.updateMute();
   }
 
   /* -------------------------------DAPI------------------------------------ */
